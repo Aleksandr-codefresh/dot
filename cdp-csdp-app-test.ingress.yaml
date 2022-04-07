@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cdp-csdp-app-test
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /webhooks/csdp-app/d
+            backend:
+              service:
+                name: d-eventsource-svc
+                port:
+                  number: 80
+            pathType: Prefix
+      host: >-
+        a61d19229a673407b816d62201da5d51-6acc54de557d15ee.elb.us-east-1.amazonaws.com

@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: d
+spec:
+  template:
+    serviceAccountName: argo-server
+  eventBusName: codefresh-eventbus
+  dependencies:
+    - name: github-9dfb779e-77c0-4117-b5de-a38916547815
+      eventName: github-9dfb779e-77c0-4117-b5de-a38916547815
+      eventSourceName: d
+      filters:
+        data:
+          - path: body.X-GitHub-Event
+            value:
+              - delete
+            type: string
+          - path: body.refType
+            value:
+              - branch
+            type: string
+  triggers:
+    - template:
+        name: d
+        conditions: github-9dfb779e-77c0-4117-b5de-a38916547815
+        argoWorkflow:
+          operation: submit
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: WorkflowTemplate
+              metadata:
+                generateName: d-d-
+              spec:
+                workflowTemplateRef:
+                  name: argo-hub.ci-simple.0.0.1
+          parameters: []

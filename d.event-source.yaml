@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: d
+spec:
+  eventBusName: codefresh-eventbus
+  service:
+    ports:
+      - port: 80
+  template:
+    serviceAccountName: argo-server
+  github:
+    github-9dfb779e-77c0-4117-b5de-a38916547815:
+      events:
+        - delete
+      repositories:
+        - owner: codefresh-io
+          names:
+            - argocd-autopilot
+      webhook:
+        port: '80'
+        method: POST
+        endpoint: /webhooks/csdp-app/d/github-9dfb779e-77c0-4117-b5de-a38916547815
+        url: >-
+          https://a61d19229a673407b816d62201da5d51-6acc54de557d15ee.elb.us-east-1.amazonaws.com
+      active: true
+      insecure: false
+      contentType: json
+      deleteHookOnFinish: true
+      apiToken:
+        name: autopilot-secret
+        key: git_token
