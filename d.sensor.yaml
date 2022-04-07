@@ -7,8 +7,8 @@ spec:
     serviceAccountName: argo-server
   eventBusName: codefresh-eventbus
   dependencies:
-    - name: github-9dfb779e-77c0-4117-b5de-a38916547815
-      eventName: github-9dfb779e-77c0-4117-b5de-a38916547815
+    - name: github-abcf2b47-ff4e-42ee-9600-ff36e3a3f006
+      eventName: github-abcf2b47-ff4e-42ee-9600-ff36e3a3f006
       eventSourceName: d
       filters:
         data:
@@ -23,7 +23,7 @@ spec:
   triggers:
     - template:
         name: d
-        conditions: github-9dfb779e-77c0-4117-b5de-a38916547815
+        conditions: github-abcf2b47-ff4e-42ee-9600-ff36e3a3f006
         argoWorkflow:
           operation: submit
           source:
